@@ -8,6 +8,13 @@ import Home from './components/Home';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
+import AdminLogin from './components/AdminLogin';
+import Dashboard from './components/Dashboard';
+import DashboardHome from './components/DashboardHome';
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Import context
+import { AuthProvider } from './context/AuthContext';
 
 // Error Boundary Component
 import { ErrorBoundary } from 'react-error-boundary';
@@ -69,33 +76,71 @@ export default function App() {
       FallbackComponent={ErrorFallback}
       onReset={() => window.location.reload()}
     >
-      <Router>
-        <div className="min-h-screen bg-white">
-          <AnimatePresence>
-            {isLoading && <LoadingSpinner />}
-          </AnimatePresence>
-
-          {/* Page Content */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Header */}
-            <Header onGetQuote={handleGetQuote} />
+      <AuthProvider>
+        <Router>
+          <div className="min-h-screen bg-white">
+            <AnimatePresence>
+              {isLoading && <LoadingSpinner />}
+            </AnimatePresence>
 
             {/* Main Content with Routes */}
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/contact" element={<ContactUs />} />
-            </Routes>
+              {/* Public Routes */}
+              <Route path="/" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <Home />
+                  <Footer />
+                </motion.div>
+              } />
 
-            {/* Footer */}
-            <Footer />
-          </motion.div>
-        </div>
-      </Router>
+              <Route path="/about" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <AboutUs />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/contact" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <ContactUs />
+                  <Footer />
+                </motion.div>
+              } />
+
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={
+                <ProtectedRoute requireAdmin={true}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }>
+                {/* Nested Dashboard Routes */}
+                <Route index element={<DashboardHome />} />
+                <Route path="bookings" element={<div className="p-6 bg-white rounded-lg shadow-sm">Bookings Page - Coming Soon</div>} />
+                <Route path="services" element={<div className="p-6 bg-white rounded-lg shadow-sm">Services Page - Coming Soon</div>} />
+                <Route path="users" element={<div className="p-6 bg-white rounded-lg shadow-sm">Users Page - Coming Soon</div>} />
+                <Route path="analytics" element={<div className="p-6 bg-white rounded-lg shadow-sm">Analytics Page - Coming Soon</div>} />
+                <Route path="settings" element={<div className="p-6 bg-white rounded-lg shadow-sm">Settings Page - Coming Soon</div>} />
+              </Route>
+            </Routes>
+          </div>
+        </Router>
+      </AuthProvider>
     </ErrorBoundary>
   );
 }

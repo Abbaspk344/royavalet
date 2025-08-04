@@ -39,7 +39,9 @@ const Footer = () => {
       { name: 'Services', href: '#services', type: 'section' },
       { name: 'Gallery', href: '#gallery', type: 'section' },
       { name: 'About us', href: '/about', type: 'route' },
-      { name: 'Contact us', href: '/contact', type: 'route' }
+      { name: 'Contact us', href: '/contact', type: 'route' },
+      { name: 'Admin', href: '/admin/login', type: 'route' }
+
     ],
     company: [
       { name: 'Brand Identity', href: '#brand', type: 'section' },
@@ -387,6 +389,7 @@ const Footer = () => {
             >
               Terms & Conditions
             </motion.a>
+           
           </div>
         </motion.div>
       </div>
