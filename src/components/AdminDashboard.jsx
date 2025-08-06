@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { apiRequest, API_ENDPOINTS } from '../config/api';
 
 const AdminDashboard = () => {
@@ -8,8 +9,9 @@ const AdminDashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -32,8 +34,8 @@ const AdminDashboard = () => {
         } else {
           setError(result.data.message || 'Failed to load dashboard');
           if (result.status === 401) {
-            localStorage.removeItem('adminToken');
-            localStorage.removeItem('adminUser');
+            // Use AuthContext logout function to properly clear state
+            logout();
             navigate('/admin/login');
           }
         }
@@ -49,8 +51,8 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
+    // Use AuthContext logout function to properly clear state
+    logout();
     navigate('/admin/login');
   };
 

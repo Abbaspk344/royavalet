@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import { apiRequest, API_ENDPOINTS } from '../config/api';
+import { useAuth } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
 const AdminLogin = () => {
@@ -12,8 +12,16 @@ const AdminLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const navigate = useNavigate();
+  const { login, isAuthenticated, isAdmin, isLoading: authLoading } = useAuth();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && isAuthenticated() && isAdmin()) {
+      navigate('/admin/dashboard');
+    }
+  }, [authLoading, isAuthenticated, isAdmin, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,16 +39,9 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const result = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
-        method: 'POST',
-        body: JSON.stringify(formData),
-      });
+      const result = await login(formData.email, formData.password);
 
-      if (result.success && result.data.success) {
-        // Store token in localStorage
-        localStorage.setItem('adminToken', result.data.data.token);
-        localStorage.setItem('adminUser', JSON.stringify(result.data.data.user));
-
+      if (result.success) {
         // Show success alert
         await Swal.fire({
           title: 'Success!',
@@ -56,7 +57,7 @@ const AdminLogin = () => {
         // Navigate to dashboard
         navigate('/admin/dashboard');
       } else {
-        setError(result.data.message || 'Login failed');
+        setError(result.message || 'Login failed');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -89,6 +90,27 @@ const AdminLogin = () => {
       }
     }
   };
+
+  // Show loading while checking authentication
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-100 flex items-center justify-center">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="w-16 h-16 border-4 border-teal-200 border-t-teal-600 rounded-full mx-auto mb-4"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <p className="text-teal-600 font-semibold">Loading...</p>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

@@ -1,20 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
 const DashboardNavbar = ({ sidebarOpen, setSidebarOpen }) => {
-  const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
-  useEffect(() => {
-    // Get user data from localStorage
-    const userData = localStorage.getItem('adminUser');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-  }, []);
+
 
   const handleLogout = async () => {
     const result = await Swal.fire({
@@ -29,10 +24,9 @@ const DashboardNavbar = ({ sidebarOpen, setSidebarOpen }) => {
     });
 
     if (result.isConfirmed) {
-      // Clear localStorage
-      localStorage.removeItem('adminToken');
-      localStorage.removeItem('adminUser');
-      
+      // Use AuthContext logout function to properly clear state
+      logout();
+
       // Show success message
       await Swal.fire({
         title: 'Logged out!',
@@ -41,8 +35,8 @@ const DashboardNavbar = ({ sidebarOpen, setSidebarOpen }) => {
         timer: 1500,
         showConfirmButton: false
       });
-      
-      // Navigate to login
+
+      // Navigate to login (ProtectedRoute will also redirect, but this ensures immediate navigation)
       navigate('/admin/login');
     }
   };
