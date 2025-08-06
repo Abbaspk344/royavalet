@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
+import { getImagesByCategory } from '../assets/imageIndex';
 
 const Technology = () => {
+  // Get technology images from local assets
+  const technologyImages = getImagesByCategory('technology');
   const techFeatures = [
     {
       icon: "📱",
@@ -171,9 +174,9 @@ const Technology = () => {
                       ease: "easeInOut" 
                     }}
                   >
-                    <img 
-                      src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                      alt="Modern luxury car with technology" 
+                    <img
+                      src={technologyImages[0]}
+                      alt="Modern luxury car with technology"
                       className="w-48 h-32 object-cover rounded-lg shadow-xl"
                     />
                   </motion.div>

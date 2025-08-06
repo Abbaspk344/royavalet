@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, animate } from 'framer-motion';
+import { getImagesByCategory } from '../assets/imageIndex';
 
 const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [displayRating, setDisplayRating] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
+
+  // Get testimonial images from local assets
+  const testimonialImages = getImagesByCategory('testimonials');
 
   const testimonials = [
     {
@@ -12,7 +16,7 @@ const Testimonials = () => {
       name: "Magda Witless",
       location: "Dubai, UAE",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      avatar: testimonialImages[0],
       text: "I just moved to Dubai, my family organized an event in Jumeirah. I needed to find a valet parking service and I found Royavalet quickly for I contacted several companies and the best parking service. After comparing prices and services, I chose Royavalet. They offered the most competitive prices and the best service compared to other providers. I highly recommend them for outstanding services.",
       service: "Event Valet Service"
     },
@@ -21,7 +25,7 @@ const Testimonials = () => {
       name: "Ahmed Al-Rashid",
       location: "Abu Dhabi, UAE",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      avatar: testimonialImages[1],
       text: "Exceptional service! The valets were professional, courteous, and handled my luxury car with utmost care. The convenience of having reliable valet parking for our corporate events has been invaluable. Royavalet has become our go-to service provider.",
       service: "Corporate Events"
     },
@@ -30,7 +34,7 @@ const Testimonials = () => {
       name: "Sarah Johnson",
       location: "Sharjah, UAE",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      avatar: testimonialImages[2],
       text: "Outstanding experience from start to finish. The booking process was seamless, the valets arrived on time, and the service exceeded our expectations. Our wedding guests were impressed with the professional service. Thank you Royavalet!",
       service: "Wedding Valet Service"
     },
@@ -39,7 +43,7 @@ const Testimonials = () => {
       name: "Mohammed Hassan",
       location: "Dubai, UAE",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+      avatar: testimonialImages[0], // Reusing first image for variety
       text: "I've been using Royavalet for my business events for over a year now. Their consistency, reliability, and attention to detail is remarkable. The team is always professional and the service is worth every dirham. Highly recommended!",
       service: "Business Events"
     }

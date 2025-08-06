@@ -1,37 +1,69 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getImagesByCategory } from '../assets/imageIndex';
 
 const BehindGlassEye = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Get gallery images from local assets
+  const galleryImageUrls = getImagesByCategory('gallery');
+
   const galleryImages = [
     {
       id: 1,
-      url: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      url: galleryImageUrls[0],
       alt: "Professional valet team in Dubai",
       title: "Our Professional Team",
       description: "Experienced valets ready to serve"
     },
     {
       id: 2,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      url: galleryImageUrls[1],
       alt: "Dubai skyline and modern architecture",
       title: "Dubai Excellence",
       description: "Serving the heart of UAE"
     },
     {
       id: 3,
-      url: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      url: galleryImageUrls[2],
       alt: "Luxury vehicles under professional care",
       title: "Luxury Car Care",
       description: "Premium service for premium vehicles"
     },
     {
       id: 4,
-      url: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      url: galleryImageUrls[3],
       alt: "Event valet services",
       title: "Event Services",
       description: "Making your events memorable"
+    },
+    {
+      id: 5,
+      url: galleryImageUrls[4],
+      alt: "Premium parking solutions",
+      title: "Premium Solutions",
+      description: "Tailored parking management"
+    },
+    {
+      id: 6,
+      url: galleryImageUrls[5],
+      alt: "Professional service standards",
+      title: "Service Excellence",
+      description: "Maintaining highest standards"
+    },
+    {
+      id: 7,
+      url: galleryImageUrls[6],
+      alt: "Modern valet technology",
+      title: "Modern Technology",
+      description: "Advanced parking solutions"
+    },
+    {
+      id: 8,
+      url: galleryImageUrls[7],
+      alt: "Customer satisfaction focus",
+      title: "Customer Focus",
+      description: "Your satisfaction is our priority"
     }
   ];
 

@@ -1,27 +1,36 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getImagesByCategory } from '../assets/imageIndex';
 import PropTypes from 'prop-types';
 
 const Hero = ({ onGetQuote, onLearnMore }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // High-quality hero images
+  // Get hero images from local assets
+  const heroImageUrls = getImagesByCategory('hero');
+
+  // Hero images with local assets
   const heroImages = [
     {
-      url: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      url: heroImageUrls[0],
       alt: 'Professional valet parking service in Dubai',
       title: 'Premium Valet Service'
     },
     {
-      url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      url: heroImageUrls[1],
       alt: 'Luxury car valet parking',
       title: 'Luxury Car Care'
     },
     {
-      url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+      url: heroImageUrls[2],
       alt: 'Dubai skyline and modern parking',
       title: 'Dubai Excellence'
+    },
+    {
+      url: heroImageUrls[3],
+      alt: 'Royal valet premium services',
+      title: 'Royal Treatment'
     }
   ];
 

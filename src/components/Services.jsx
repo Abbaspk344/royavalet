@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { getImagesByCategory } from '../assets/imageIndex';
 
 const Services = ({ onServiceSelect }) => {
   const [expandedService, setExpandedService] = useState(null);
+
+  // Get service images from local assets
+  const serviceImages = getImagesByCategory('services');
 
   const services = [
     {
@@ -11,7 +15,7 @@ const Services = ({ onServiceSelect }) => {
       title: "VALET PARKING",
       description: "We provide a certified and professional driver for your vehicle safety and security.",
       icon: "🚗",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: serviceImages[0],
       details: "Our professional valets ensure your vehicle is parked safely and securely while you enjoy your time at your destination. We handle luxury cars, sports cars, and all vehicle types with the utmost care.",
       features: ["Professional certified valets", "Insurance coverage", "24/7 availability", "Luxury car expertise"]
     },
@@ -20,7 +24,7 @@ const Services = ({ onServiceSelect }) => {
       title: "PARKING MANAGEMENT",
       description: "Our professionals can create a comprehensive parking management program tailored to your needs.",
       icon: "🅿️",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: serviceImages[1],
       details: "Complete parking management solutions for businesses, events, and residential complexes. We optimize space utilization and ensure smooth traffic flow.",
       features: ["Space optimization", "Traffic flow management", "Digital monitoring", "Custom solutions"]
     },
@@ -29,7 +33,7 @@ const Services = ({ onServiceSelect }) => {
       title: "BUGGY DRIVERS",
       description: "We offer professional buggy drivers to transport guests comfortably across large venues.",
       icon: "🚙",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: serviceImages[2],
       details: "Professional buggy drivers for golf courses, resorts, and large venues to transport guests comfortably and safely.",
       features: ["Experienced drivers", "Well-maintained vehicles", "Route optimization", "Guest comfort priority"]
     },
@@ -38,7 +42,7 @@ const Services = ({ onServiceSelect }) => {
       title: "PRIVATE EVENTS",
       description: "Specialized valet services for weddings, corporate events, and private parties.",
       icon: "🎉",
-      image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: serviceImages[3],
       details: "Make your special events memorable with our premium valet services. We handle everything from intimate gatherings to large corporate functions.",
       features: ["Event planning support", "Flexible scheduling", "Premium service", "Guest satisfaction guarantee"]
     },
@@ -47,7 +51,7 @@ const Services = ({ onServiceSelect }) => {
       title: "TRAFFIC CONTROL MARSHALLS",
       description: "Professional traffic control marshalls to ensure smooth traffic flow at your events.",
       icon: "🚦",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      image: serviceImages[4],
       details: "Certified traffic control marshalls ensure safe and efficient traffic management for events, construction sites, and special occasions.",
       features: ["Certified professionals", "Safety equipment provided", "Emergency protocols", "Coordination with authorities"]
     }

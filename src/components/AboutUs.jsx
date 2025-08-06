@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
+import { getImagesByCategory } from '../assets/imageIndex';
 
 const AboutUs = () => {
+  // Get about us images from local assets
+  const aboutUsImages = getImagesByCategory('aboutUs');
+  const testimonialImages = getImagesByCategory('testimonials');
   const stats = [
     { number: '500+', label: 'Happy Clients', icon: '😊' },
     { number: '10+', label: 'Years Experience', icon: '📅' },
@@ -45,19 +49,19 @@ const AboutUs = () => {
     {
       name: 'Ahmed Al-Rashid',
       position: 'Founder & CEO',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      image: testimonialImages[0],
       description: 'Visionary leader with 15+ years in hospitality and automotive services.'
     },
     {
       name: 'Sarah Johnson',
       position: 'Operations Manager',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      image: testimonialImages[1],
       description: 'Expert in operational excellence and customer service management.'
     },
     {
       name: 'Mohammed Hassan',
       position: 'Head of Security',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+      image: testimonialImages[2],
       description: 'Security specialist ensuring the highest safety standards for all vehicles.'
     }
   ];
@@ -103,7 +107,7 @@ const AboutUs = () => {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                  src={aboutUsImages[0]}
                   alt="Professional valet team"
                   className="w-full h-96 object-cover"
                 />
