@@ -103,6 +103,8 @@ export const apiRequest = async (endpoint, options = {}) => {
     const fetchOptions = createFetchOptions(options);
 
     console.log(`🔄 API Request: ${options.method || 'GET'} ${url}`);
+    console.log(`🔧 Request Options:`, fetchOptions);
+    console.log(`🌐 Current Origin:`, window.location.origin);
 
     const response = await fetch(url, fetchOptions);
     const data = await response.json();
