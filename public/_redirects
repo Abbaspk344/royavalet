@@ -1,0 +1,12 @@
+# Netlify redirects file for React Router (SPA)
+# This tells Netlify to serve index.html for all routes that don't match static files
+# This allows React Router to handle client-side routing
+
+# Handle all routes by serving index.html (except for files that actually exist)
+/*    /index.html   200
+
+# Optional: Redirect HTTP to HTTPS (if you want to force HTTPS)
+# http://royavalet.netlify.app/*    https://royavalet.netlify.app/:splat    301!
+
+# Optional: Handle API routes if you have a backend (currently not needed since backend is separate)
+# /api/*    https://your-backend-url.com/api/:splat    200
