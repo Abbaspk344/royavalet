@@ -7,6 +7,8 @@ import Header from './components/Header';
 import Home from './components/Home';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
+import Gallery from './components/Gallery';
+import ServicesPage from './components/ServicesPage';
 import Footer from './components/Footer';
 import AdminLogin from './components/AdminLogin';
 import Dashboard from './components/Dashboard';
@@ -120,6 +122,30 @@ export default function App() {
                 >
                   <Header onGetQuote={handleGetQuote} />
                   <ContactUs />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/services" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <ServicesPage />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/gallery" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <Gallery />
                   <Footer />
                 </motion.div>
               } />

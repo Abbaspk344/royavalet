@@ -8,8 +8,8 @@ const Header = ({ onGetQuote }) => {
   const location = useLocation();
 
   const navigationItems = [
-    { href: '#services', label: 'Services', type: 'section' },
-    { href: '#technology', label: 'Technology', type: 'section' },
+    { href: '/services', label: 'Services', type: 'route' },
+    { href: '/gallery', label: 'Gallery', type: 'route' },
     { href: '/about', label: 'About Us', type: 'route' },
     { href: '/contact', label: 'Contact Us', type: 'route' }
   ];
