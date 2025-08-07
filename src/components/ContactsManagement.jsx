@@ -16,8 +16,10 @@ const ContactsManagement = () => {
     try {
       setLoading(true);
 
-      // Use centralized API request function
-      const data = await apiRequest(`${API_ENDPOINTS.CONTACT}?page=${page}&limit=${contactsPerPage}`);
+      // Use centralized API request function with authentication
+      const data = await apiRequest(`${API_ENDPOINTS.CONTACT}?page=${page}&limit=${contactsPerPage}`, {
+        includeAuth: true
+      });
 
       if (data.success) {
         setContacts(data.data);
@@ -60,9 +62,10 @@ const ContactsManagement = () => {
 
     if (result.isConfirmed) {
       try {
-        // Use centralized API request function
+        // Use centralized API request function with authentication
         const data = await apiRequest(API_ENDPOINTS.CONTACT_BY_ID(contactId), {
           method: 'DELETE',
+          includeAuth: true
         });
 
         if (data.success) {

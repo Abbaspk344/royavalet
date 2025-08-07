@@ -75,17 +75,24 @@ export const createApiUrl = (endpoint) => {
 
 // Default fetch options with error handling
 export const createFetchOptions = (options = {}) => {
+  const { includeAuth = false, ...restOptions } = options;
   const token = localStorage.getItem('adminToken');
-  
-  const defaultOptions = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` }),
-      ...options.headers,
-    },
-    ...options,
+
+  const headers = {
+    'Content-Type': 'application/json',
+    ...restOptions.headers,
   };
-  
+
+  // Only include auth token if explicitly requested and token exists
+  if (includeAuth && token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const defaultOptions = {
+    headers,
+    ...restOptions,
+  };
+
   return defaultOptions;
 };
 
@@ -94,21 +101,43 @@ export const apiRequest = async (endpoint, options = {}) => {
   try {
     const url = createApiUrl(endpoint);
     const fetchOptions = createFetchOptions(options);
-    
+
     console.log(`🔄 API Request: ${options.method || 'GET'} ${url}`);
-    
+
     const response = await fetch(url, fetchOptions);
     const data = await response.json();
-    
+
     if (!response.ok) {
+      // For specific status codes, return the data instead of throwing to allow proper error handling
+      if (response.status === 400) {
+        console.log(`⚠️ Validation Error: ${response.status} ${response.statusText}`);
+        return data; // Return the validation error data
+      }
+
+      if (response.status === 401) {
+        console.log(`🔒 Authentication Error: ${response.status} ${response.statusText}`);
+        return data; // Return the authentication error data
+      }
+
+      if (response.status === 409) {
+        console.log(`🔄 Conflict Error: ${response.status} ${response.statusText}`);
+        return data; // Return the conflict error data (e.g., duplicate email)
+      }
+
+      // For other error status codes, throw an error
       throw new Error(data.message || `HTTP error! status: ${response.status}`);
     }
-    
+
     console.log(`✅ API Response: ${response.status} ${response.statusText}`);
     return data;
-    
+
   } catch (error) {
-    console.error(`❌ API Request failed for ${endpoint}:`, error);
+    // Only log and re-throw if it's a network error or other non-validation error
+    if (error.name === 'TypeError' || error.message.includes('fetch')) {
+      console.error(`❌ Network Error for ${endpoint}:`, error);
+    } else {
+      console.error(`❌ API Request failed for ${endpoint}:`, error);
+    }
     throw error;
   }
 };

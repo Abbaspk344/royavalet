@@ -43,13 +43,13 @@ export const AuthProvider = ({ children }) => {
   // Login function
   const login = async (email, password) => {
     try {
-      const result = await apiRequest(API_ENDPOINTS.AUTH.LOGIN, {
+      const result = await apiRequest(API_ENDPOINTS.AUTH_LOGIN, {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       });
 
-      if (result.success && result.data.success) {
-        const { token: newToken, user: newUser } = result.data.data;
+      if (result.success) {
+        const { token: newToken, user: newUser } = result.data;
 
         // Store in localStorage
         localStorage.setItem('adminToken', newToken);
@@ -59,9 +59,9 @@ export const AuthProvider = ({ children }) => {
         setToken(newToken);
         setUser(newUser);
 
-        return { success: true, data: result.data.data };
+        return { success: true, data: result.data };
       } else {
-        return { success: false, message: result.data.message };
+        return { success: false, message: result.message };
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       console.log('AuthContext: Making API request to /me endpoint');
-      const result = await apiRequest(API_ENDPOINTS.AUTH.ME, {
+      const result = await apiRequest(API_ENDPOINTS.AUTH_ME, {
         method: 'GET',
         includeAuth: true,
       });

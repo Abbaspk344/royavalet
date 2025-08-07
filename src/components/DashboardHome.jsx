@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { apiRequest, API_ENDPOINTS } from '../config/apiConfig';
 
 const DashboardHome = () => {
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({
-    totalBookings: 0,
-    activeServices: 0,
+    totalContacts: 0,
+    totalEmails: 0,
     totalUsers: 0,
-    revenue: 0
+    pendingContacts: 0
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log('DashboardHome: Component mounted');
@@ -25,43 +27,62 @@ const DashboardHome = () => {
       }
     }
 
-    // Mock stats data - replace with actual API calls
-    setStats({
-      totalBookings: 156,
-      activeServices: 8,
-      totalUsers: 342,
-      revenue: 15420
-    });
+    // Fetch dashboard data from API
+    fetchDashboardData();
   }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const data = await apiRequest(API_ENDPOINTS.DASHBOARD_OVERVIEW, {
+        includeAuth: true
+      });
+
+      if (data.success) {
+        const { contacts, emails, users } = data.data;
+        setStats({
+          totalContacts: contacts.total,
+          totalEmails: emails.total,
+          totalUsers: users.total,
+          pendingContacts: contacts.pending
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+      // Keep default values on error
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const statCards = [
     {
-      title: 'Total Bookings',
-      value: stats.totalBookings,
-      icon: '📅',
+      title: 'Total Contacts',
+      value: stats.totalContacts,
+      icon: '�',
       color: 'bg-blue-500',
-      change: '+12%'
+      change: loading ? '...' : '+12%'
     },
     {
-      title: 'Active Services',
-      value: stats.activeServices,
-      icon: '🚗',
+      title: 'Email Subscriptions',
+      value: stats.totalEmails,
+      icon: '�',
       color: 'bg-green-500',
-      change: '+3%'
+      change: loading ? '...' : '+8%'
     },
     {
       title: 'Total Users',
       value: stats.totalUsers,
       icon: '👥',
       color: 'bg-purple-500',
-      change: '+8%'
+      change: loading ? '...' : '+5%'
     },
     {
-      title: 'Revenue',
-      value: `$${stats.revenue.toLocaleString()}`,
-      icon: '💰',
+      title: 'Pending Contacts',
+      value: stats.pendingContacts,
+      icon: '⏳',
       color: 'bg-yellow-500',
-      change: '+15%'
+      change: loading ? '...' : 'New'
     }
   ];
 

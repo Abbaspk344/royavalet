@@ -16,8 +16,10 @@ const EmailsManagement = () => {
     try {
       setLoading(true);
 
-      // Use centralized API request function
-      const data = await apiRequest(`${API_ENDPOINTS.EMAIL_SUBSCRIPTIONS}?page=${page}&limit=${emailsPerPage}`);
+      // Use centralized API request function with authentication
+      const data = await apiRequest(`${API_ENDPOINTS.EMAIL_SUBSCRIPTIONS}?page=${page}&limit=${emailsPerPage}`, {
+        includeAuth: true
+      });
 
       if (data.success) {
         setEmails(data.data);
@@ -60,9 +62,10 @@ const EmailsManagement = () => {
 
     if (result.isConfirmed) {
       try {
-        // Use centralized API request function
+        // Use centralized API request function with authentication
         const data = await apiRequest(API_ENDPOINTS.EMAIL_SUBSCRIPTION_BY_ID(emailId), {
           method: 'DELETE',
+          includeAuth: true
         });
 
         if (data.success) {
