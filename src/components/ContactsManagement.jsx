@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
+import { apiRequest, API_ENDPOINTS, createApiUrl } from '../config/apiConfig';
 
 const ContactsManagement = () => {
   const [contacts, setContacts] = useState([]);
@@ -14,19 +15,10 @@ const ContactsManagement = () => {
   const fetchContacts = async (page = 1) => {
     try {
       setLoading(true);
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await fetch(
-        `${API_BASE_URL}/api/contact?page=${page}&limit=${contactsPerPage}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
 
-      const data = await response.json();
-      
+      // Use centralized API request function
+      const data = await apiRequest(`${API_ENDPOINTS.CONTACT}?page=${page}&limit=${contactsPerPage}`);
+
       if (data.success) {
         setContacts(data.data);
         setTotalPages(data.pagination.pages);
@@ -68,16 +60,10 @@ const ContactsManagement = () => {
 
     if (result.isConfirmed) {
       try {
-        const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const response = await fetch(`${API_BASE_URL}/api/contact/${contactId}`, {
+        // Use centralized API request function
+        const data = await apiRequest(API_ENDPOINTS.CONTACT_BY_ID(contactId), {
           method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-            'Content-Type': 'application/json',
-          },
         });
-
-        const data = await response.json();
 
         if (data.success) {
           Swal.fire({

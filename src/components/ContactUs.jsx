@@ -8,6 +8,7 @@ import {
   showConnectionErrorAlert,
   showErrorAlert
 } from '../utils/sweetAlert';
+import { apiRequest, API_ENDPOINTS } from '../config/apiConfig';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -35,16 +36,11 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+      // Use centralized API request function
+      const data = await apiRequest(API_ENDPOINTS.CONTACT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify(formData),
       });
-
-      const data = await response.json();
 
       if (data.success) {
         setIsSubmitted(true);

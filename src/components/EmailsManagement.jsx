@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
+import { apiRequest, API_ENDPOINTS } from '../config/apiConfig';
 
 const EmailsManagement = () => {
   const [emails, setEmails] = useState([]);
@@ -14,19 +15,10 @@ const EmailsManagement = () => {
   const fetchEmails = async (page = 1) => {
     try {
       setLoading(true);
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await fetch(
-        `${API_BASE_URL}/api/email/subscriptions?page=${page}&limit=${emailsPerPage}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
 
-      const data = await response.json();
-      
+      // Use centralized API request function
+      const data = await apiRequest(`${API_ENDPOINTS.EMAIL_SUBSCRIPTIONS}?page=${page}&limit=${emailsPerPage}`);
+
       if (data.success) {
         setEmails(data.data);
         setTotalPages(data.pagination.pages);
@@ -68,16 +60,10 @@ const EmailsManagement = () => {
 
     if (result.isConfirmed) {
       try {
-        const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const response = await fetch(`${API_BASE_URL}/api/email/subscription/${emailId}`, {
+        // Use centralized API request function
+        const data = await apiRequest(API_ENDPOINTS.EMAIL_SUBSCRIPTION_BY_ID(emailId), {
           method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
-            'Content-Type': 'application/json',
-          },
         });
-
-        const data = await response.json();
 
         if (data.success) {
           Swal.fire({

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { showToastSuccess, showToastInfo, showToastError } from '../utils/sweetAlert';
+import { apiRequest, API_ENDPOINTS } from '../config/apiConfig';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -16,19 +17,14 @@ const Footer = () => {
     setIsSubmitting(true);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await fetch(`${API_BASE_URL}/api/email/subscribe`, {
+      // Use centralized API request function
+      const data = await apiRequest(API_ENDPOINTS.EMAIL_SUBSCRIBE, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           email,
           source: 'website-footer'
         }),
       });
-
-      const data = await response.json();
 
       if (data.success) {
         setIsSubscribed(true);
