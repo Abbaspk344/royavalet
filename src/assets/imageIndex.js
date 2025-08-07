@@ -1,7 +1,3 @@
-// Image index for easy access to renamed images
-// All images are now numbered sequentially: 1.jpg, 2.jpg, 3.jpg, etc.
-
-// Import all numbered images
 import img1 from './1.jpg';
 import img2 from './2.jpg';
 import img3 from './3.jpg';

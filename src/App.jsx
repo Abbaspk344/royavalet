@@ -12,6 +12,8 @@ import AdminLogin from './components/AdminLogin';
 import Dashboard from './components/Dashboard';
 import DashboardHome from './components/DashboardHome';
 import ProtectedRoute from './components/ProtectedRoute';
+import ContactsManagement from './components/ContactsManagement';
+import EmailsManagement from './components/EmailsManagement';
 
 // Import context
 import { AuthProvider } from './context/AuthContext';
@@ -131,6 +133,8 @@ export default function App() {
               }>
                 {/* Nested Dashboard Routes */}
                 <Route index element={<DashboardHome />} />
+                <Route path="contacts" element={<ContactsManagement />} />
+                <Route path="emails" element={<EmailsManagement />} />
                 <Route path="bookings" element={<div className="p-6 bg-white rounded-lg shadow-sm">Bookings Page - Coming Soon</div>} />
                 <Route path="services" element={<div className="p-6 bg-white rounded-lg shadow-sm">Services Page - Coming Soon</div>} />
                 <Route path="users" element={<div className="p-6 bg-white rounded-lg shadow-sm">Users Page - Coming Soon</div>} />

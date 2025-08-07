@@ -1,18 +1,73 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { showToastSuccess, showToastInfo, showToastError } from '../utils/sweetAlert';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const location = useLocation();
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
-      setIsSubscribed(true);
-      setEmail('');
-      setTimeout(() => setIsSubscribed(false), 3000);
+    if (!email) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_BASE_URL}/api/email/subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          source: 'website-footer'
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubscribed(true);
+        setEmail('');
+
+        // Show success toast
+        showToastSuccess(
+          'Successfully Subscribed!',
+          data.message || 'Thank you for subscribing to our newsletter!'
+        );
+
+        // Hide success state after 5 seconds
+        setTimeout(() => {
+          setIsSubscribed(false);
+        }, 5000);
+      } else {
+        // Handle validation errors or other issues
+        if (data.message && data.message.includes('already subscribed')) {
+          showToastInfo(
+            'Already Subscribed!',
+            'This email is already subscribed to our newsletter.'
+          );
+        } else {
+          showToastError(
+            'Subscription Failed',
+            data.message || 'Failed to subscribe. Please try again.'
+          );
+        }
+      }
+    } catch (error) {
+      console.error('Email subscription error:', error);
+
+      // Show network/connection error
+      showToastError(
+        'Connection Error',
+        'Failed to subscribe. Please check your internet connection and try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -305,25 +360,26 @@ const Footer = () => {
               />
               <motion.button
                 type="submit"
-                className="bg-teal-800 px-4 py-3 rounded-r-lg hover:bg-teal-900 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                disabled={isSubscribed}
+                className={`px-4 py-3 rounded-r-lg transition-colors ${
+                  isSubmitting || isSubscribed
+                    ? 'bg-gray-600 cursor-not-allowed'
+                    : 'bg-teal-800 hover:bg-teal-900'
+                }`}
+                whileHover={!isSubmitting && !isSubscribed ? { scale: 1.05 } : {}}
+                whileTap={!isSubmitting && !isSubscribed ? { scale: 0.95 } : {}}
+                disabled={isSubmitting || isSubscribed}
               >
-                {isSubscribed ? '✓' : '✉️'}
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                ) : isSubscribed ? (
+                  '✓'
+                ) : (
+                  '✉️'
+                )}
               </motion.button>
             </motion.form>
 
-            {isSubscribed && (
-              <motion.div
-                className="bg-green-500 text-white px-4 py-2 rounded-lg mb-4 text-sm"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-              >
-                Thank you for subscribing!
-              </motion.div>
-            )}
+
             
             <div className="mt-8">
               <h4 className="text-lg font-semibold mb-4 text-teal-200">Support</h4>
