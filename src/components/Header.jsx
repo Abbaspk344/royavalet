@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import finallogo from "../assets/finallogo.png";
 const Header = ({ onGetQuote }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -108,8 +108,8 @@ const Header = ({ onGetQuote }) => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Link to="/" className="cursor-pointer text-xl md:text-2xl font-bold text-teal-600">
-                ROYAVALET
+              <Link to="/" className="cursor-pointer ">
+               <img src={finallogo} alt="" className=' md:w-30 md:h-20 h-10 w-30 md:object-fill animate-pulse object-center' />
               </Link>
             </motion.div>
 
