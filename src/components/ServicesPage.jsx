@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from 'react-router-dom';
 import { getImagesByCategory } from '../assets/imageIndex';
 
 const ServicesPage = () => {
+  const { serviceName } = useParams();
   const [expandedService, setExpandedService] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -75,6 +77,17 @@ const ServicesPage = () => {
       details: "Expert care for high-end vehicles with specialized training and insurance coverage for luxury automobiles.",
       features: ["Luxury vehicle expertise", "Enhanced insurance", "White-glove service", "Detailed care protocols"],
       pricing: "Premium rates apply"
+    },
+    {
+      id: 7,
+      title: "DELIVERY BIKER SERVICES",
+      description: "Efficient and reliable delivery biker services for your business needs.",
+      icon: "🚲",
+      image: serviceImages[6],
+      category: "transport",
+      details: "Our delivery biker services provide a fast and efficient way to manage your deliveries. Whether it's documents, packages, or food, our bikers ensure timely and safe delivery.",
+      features: ["Real-time tracking", "Fast and reliable", "Affordable pricing", "24/7 availability"],
+      pricing: "Starting from AED 20/delivery"
     }
   ];
 
@@ -107,7 +120,7 @@ const ServicesPage = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Our <span className="text-red-500">Services</span>
+              {serviceName ? serviceName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Our Services'}
             </h1>
             <p className="text-xl md:text-2xl text-blue-200 max-w-3xl mx-auto">
               Professional valet and parking management solutions tailored to your needs

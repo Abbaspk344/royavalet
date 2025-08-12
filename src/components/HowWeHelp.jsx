@@ -199,26 +199,7 @@ const HowWeHelp = () => {
           </motion.div>
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <motion.button
-            className="bg-white text-teal-700 px-8 py-4 rounded-lg text-lg font-semibold shadow-xl hover:shadow-2xl"
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: "0 25px 50px rgba(0,0,0,0.3)"
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            Experience Our Premium Service
-          </motion.button>
-        </motion.div>
+       
       </div>
     </section>
   );

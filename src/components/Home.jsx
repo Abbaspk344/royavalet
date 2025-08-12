@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 // Import all home page components
 import Hero from './Hero';
-import Services from './Services';
+import NewServices from './NewServices';
 import WhyChooseUs from './WhyChooseUs';
 import HowWeHelp from './HowWeHelp';
 import BehindGlassEye from './BehindGlassEye';
@@ -56,7 +56,7 @@ const Home = () => {
 
       {/* Services Section */}
       <section id="services">
-        <Services onServiceSelect={handleServiceSelect} />
+        <NewServices />
       </section>
 
       {/* Why Choose Us Section */}

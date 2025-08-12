@@ -9,6 +9,11 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import Gallery from './components/Gallery';
 import ServicesPage from './components/ServicesPage';
+import ValetParkingForEvent from './components/ValetParkingForEvent';
+import ValetParkingInUAE from './components/ValetParkingInUAE';
+import TransportationSolutions from './components/TransportationSolutions';
+import ParkingLotManagement from './components/ParkingLotManagement';
+import DeliveryBikerServices from './components/DeliveryBikerServices';
 import Footer from './components/Footer';
 import AdminLogin from './components/AdminLogin';
 import Dashboard from './components/Dashboard';
@@ -138,6 +143,78 @@ export default function App() {
                 </motion.div>
               } />
 
+              <Route path="/services/valet-parking-for-event" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <ValetParkingForEvent />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/services/valet-parking-services-in-uae" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <ValetParkingInUAE />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/services/transportation-solutions" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <TransportationSolutions />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/services/parking-lot-management" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <ParkingLotManagement />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/services/delivery-biker-services" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <DeliveryBikerServices />
+                  <Footer />
+                </motion.div>
+              } />
+
+              <Route path="/services/:serviceName" element={
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Header onGetQuote={handleGetQuote} />
+                  <ServicesPage />
+                  <Footer />
+                </motion.div>
+              } />
+
               <Route path="/gallery" element={
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -174,4 +251,3 @@ export default function App() {
     </ErrorBoundary>
   );
 }
-

@@ -7,11 +7,23 @@ const Header = ({ onGetQuote }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
   const navigationItems = [
-    { href: '/services', label: 'Services', type: 'route' },
+    {
+      // href: '/services',
+      label: 'Services',
+      type: 'route',
+      children: [
+        { href: '/services/valet-parking-for-event', label: 'Valet Parking for Events' },
+        { href: '/services/valet-parking-services-in-uae', label: 'Valet Parking Services in UAE' },
+        { href: '/services/transportation-solutions', label: 'Transportation Solutions' },
+        { href: '/services/parking-lot-management', label: 'Parking Lot Management' },
+        { href: '/services/delivery-biker-services', label: 'Delivery Biker Services' },
+      ],
+    },
     { href: '/gallery', label: 'Gallery', type: 'route' },
     { href: '/about', label: 'About Us', type: 'route' },
-    { href: '/contact', label: 'Contact Us', type: 'route' }
+    { href: '/contact', label: 'Contact Us', type: 'route' },
   ];
 
   const contactInfo = [
@@ -116,48 +128,49 @@ const Header = ({ onGetQuote }) => {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex space-x-6 xl:space-x-8">
               {navigationItems.map((item, index) => (
-                item.type === 'section' ? (
-                  <motion.a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(e) => handleNavigation(e, item)}
-                    className="text-gray-700 hover:text-teal-600 font-medium transition-colors relative text-sm xl:text-base"
-                    whileHover={{ y: -2 }}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                <motion.div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={() => item.children && setIsServicesMenuOpen(true)}
+                  onMouseLeave={() => item.children && setIsServicesMenuOpen(false)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
+                >
+                  <Link
+                    to={item.href}
+                    className={`text-gray-700 hover:text-teal-600 font-medium transition-colors relative text-sm xl:text-base ${
+                      location.pathname === item.href ? 'text-teal-600' : ''
+                    }`}
                   >
-                    {item.label}
+                    <motion.div whileHover={{ y: -2 }}>
+                      {item.label}
+                      <motion.div
+                        className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600"
+                        whileHover={{ width: "100%" }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.div>
+                  </Link>
+                  {item.children && isServicesMenuOpen && (
                     <motion.div
-                      className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600"
-                      whileHover={{ width: "100%" }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.a>
-                ) : (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-                  >
-                    <Link
-                      to={item.href}
-                      className={`text-gray-700 hover:text-teal-600 font-medium transition-colors relative text-sm xl:text-base ${
-                        location.pathname === item.href ? 'text-teal-600' : ''
-                      }`}
+                      className="absolute left-0 w-48 bg-white rounded-md shadow-lg z-10"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
                     >
-                      <motion.div whileHover={{ y: -2 }}>
-                        {item.label}
-                        <motion.div
-                          className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-600"
-                          whileHover={{ width: "100%" }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      </motion.div>
-                    </Link>
-                  </motion.div>
-                )
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-100"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </motion.div>
               ))}
             </div>
 
@@ -231,7 +244,7 @@ const Header = ({ onGetQuote }) => {
             >
               <div className="container mx-auto px-4 py-6">
                 {/* Mobile Contact Info */}
-                <div className="mb-6 pb-6 border-b border-gray-200">
+                <div className="mb-6 pb-6 border-b border-gray-200 hidden">
                   <h3 className="text-sm font-semibold text-gray-800 mb-3">Contact Us</h3>
                   <div className="grid grid-cols-1 gap-3 text-sm">
                     {contactInfo.map((contact, index) => (
@@ -270,14 +283,13 @@ const Header = ({ onGetQuote }) => {
                       </motion.a>
                     ) : (
                       <motion.div
-                        key={item.href}
+                        key={item.label}
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
                       >
-                        <Link
-                          to={item.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
+                        <div
+                          onClick={() => item.children && setIsServicesMenuOpen(!isServicesMenuOpen)}
                           className={`block text-gray-700 hover:text-teal-600 font-medium py-3 px-3 rounded-lg hover:bg-teal-50 transition-colors text-lg ${
                             location.pathname === item.href ? 'text-teal-600 bg-teal-50' : ''
                           }`}
@@ -285,7 +297,26 @@ const Header = ({ onGetQuote }) => {
                           <motion.div whileTap={{ scale: 0.98 }}>
                             {item.label}
                           </motion.div>
-                        </Link>
+                        </div>
+                        {item.children && isServicesMenuOpen && (
+                          <motion.div
+                            className="ml-4"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                          >
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.href}
+                                to={child.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block text-gray-700 hover:text-teal-600 font-medium py-2 px-3 rounded-lg hover:bg-teal-50 transition-colors text-base"
+                              >
+                                {child.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
                       </motion.div>
                     )
                   ))}

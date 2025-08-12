@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import finallogo from '../assets/finallogo.png';
 import { showToastSuccess, showToastInfo, showToastError } from '../utils/sweetAlert';
 import { apiRequest, API_ENDPOINTS } from '../config/apiConfig';
+import { FaWhatsapp, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +19,6 @@ const Footer = () => {
     setIsSubmitting(true);
 
     try {
-      // Use centralized API request function
       const data = await apiRequest(API_ENDPOINTS.EMAIL_SUBSCRIBE, {
         method: 'POST',
         body: JSON.stringify({
@@ -29,19 +30,14 @@ const Footer = () => {
       if (data.success) {
         setIsSubscribed(true);
         setEmail('');
-
-        // Show success toast
         showToastSuccess(
           'Successfully Subscribed!',
           data.message || 'Thank you for subscribing to our newsletter!'
         );
-
-        // Hide success state after 5 seconds
         setTimeout(() => {
           setIsSubscribed(false);
         }, 5000);
       } else {
-        // Handle validation errors or other issues
         if (data.message && data.message.includes('already subscribed')) {
           showToastInfo(
             'Already Subscribed!',
@@ -56,8 +52,6 @@ const Footer = () => {
       }
     } catch (error) {
       console.error('Email subscription error:', error);
-
-      // Show network/connection error
       showToastError(
         'Connection Error',
         'Failed to subscribe. Please check your internet connection and try again.'
@@ -71,79 +65,47 @@ const Footer = () => {
     e.preventDefault();
 
     if (item.type === 'section') {
-      // If we're on the home page, scroll to section
       if (location.pathname === '/') {
         const element = document.querySelector(item.href);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       } else {
-        // If we're on another page, navigate to home with hash
         window.location.href = `/${item.href}`;
       }
     }
-    // For routes, React Router will handle navigation automatically
   };
 
   const footerLinks = {
     useful: [
-      { name: 'Services', href: '#services', type: 'section' },
-      { name: 'Gallery', href: '#gallery', type: 'section' },
+      { name: 'Gallery', href: '/gallery', type: 'route' },
       { name: 'About us', href: '/about', type: 'route' },
       { name: 'Contact us', href: '/contact', type: 'route' },
       { name: 'Admin', href: '/admin/login', type: 'route' }
-
-    ],
-    company: [
-      { name: 'Brand Identity', href: '#brand', type: 'section' },
-      { name: 'Newsroom', href: '#news', type: 'section' },
-      { name: 'Careers', href: '#careers', type: 'section' },
-      { name: 'Investor Relations', href: '#investors', type: 'section' }
     ]
   };
-
-  const socialLinks = [
-    { 
-      name: 'Instagram', 
-      icon: '📷', 
-      href: '#',
-      color: 'hover:text-pink-400'
-    },
-    { 
-      name: 'Facebook', 
-      icon: '📘', 
-      href: '#',
-      color: 'hover:text-blue-400'
-    },
-    { 
-      name: 'LinkedIn', 
-      icon: '💼', 
-      href: '#',
-      color: 'hover:text-blue-600'
-    },
-    { 
-      name: 'TikTok', 
-      icon: '🎵', 
-      href: '#',
-      color: 'hover:text-purple-400'
-    }
-  ];
 
   const contactMethods = [
     {
       type: 'Email Support',
       status: 'Available 24/7',
-      action: () => window.open('mailto:info@royaletparking.co', '_blank')
+      action: () => window.open('mailto:info@royaletparking.co', '_blank'),
+      icon: <FaEnvelope />,
+      color: 'text-red-500 hover:text-red-400'
     },
     {
       type: 'Call Support',
       status: 'Mon-Sun 8AM-10PM',
-      action: () => window.open('tel:+971526581431', '_blank')
+      action: () => window.open('tel:+971526581431', '_blank'),
+      icon: <FaPhone />,
+      color: 'text-blue-500 hover:text-blue-400'
     },
     {
       type: 'WhatsApp Us',
       status: 'Instant Response',
-      action: () => window.open('https://wa.me/923449088483', '_blank')
+      action: () => window.open('https://wa.me/923449088483', '_blank'),
+      icon: <FaWhatsapp />,
+      color: 'hover:text-green-500'
     }
   ];
 
@@ -187,7 +149,8 @@ const Footer = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="text-3xl font-bold">🅿️ ROYAVALET</div>
+              <img src={finallogo} alt="Royavalet Logo" className="h-12" />
+              <span className="font-bold text-2xl ml-2">RoyaValet</span>
             </motion.div>
             <motion.p 
               className="text-teal-100 mb-6 leading-relaxed"
@@ -199,25 +162,14 @@ const Footer = () => {
               efficient valet parking in Dubai, Sharjah and all over the UAE.
             </motion.p>
             
-            <motion.button
-              className="bg-white text-teal-700 px-6 py-3 rounded-lg font-semibold mb-6 shadow-lg"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              DOWNLOAD PROFILE
-            </motion.button>
-
-            {/* Social Links */}
+          
+            {/* Contact Icons */}
             <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  className={`text-2xl transition-colors ${social.color}`}
+              {contactMethods.map((method, index) => (
+                <motion.button
+                  key={method.type}
+                  onClick={method.action}
+                  className={`text-2xl transition-colors ${method.color}`}
                   whileHover={{ scale: 1.2, rotate: 360 }}
                   whileTap={{ scale: 0.9 }}
                   transition={{ duration: 0.3 }}
@@ -225,10 +177,10 @@ const Footer = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   style={{ transitionDelay: `${0.5 + index * 0.1}s` }}
-                  aria-label={social.name}
+                  aria-label={method.type}
                 >
-                  {social.icon}
-                </motion.a>
+                  {method.icon}
+                </motion.button>
               ))}
             </div>
           </motion.div>
@@ -245,89 +197,53 @@ const Footer = () => {
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
                 >
-                  {link.type === 'section' ? (
-                    <motion.a
-                      href={link.href}
-                      onClick={(e) => handleNavigation(e, link)}
-                      className="text-teal-100 hover:text-white transition-colors flex items-center group"
+                  <Link
+                    to={link.href}
+                    className="text-teal-100 hover:text-white transition-colors flex items-center group"
+                  >
+                    <motion.div
                       whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 300 }}
+                      className="flex items-center"
                     >
                       <motion.span
                         className="w-0 group-hover:w-2 h-0.5 bg-teal-300 mr-0 group-hover:mr-2 transition-all duration-300"
                       />
                       {link.name}
-                    </motion.a>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className="text-teal-100 hover:text-white transition-colors flex items-center group"
-                    >
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        className="flex items-center"
-                      >
-                        <motion.span
-                          className="w-0 group-hover:w-2 h-0.5 bg-teal-300 mr-0 group-hover:mr-2 transition-all duration-300"
-                        />
-                        {link.name}
-                      </motion.div>
-                    </Link>
-                  )}
+                    </motion.div>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Company */}
+          {/* Support */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-xl font-semibold mb-6 text-teal-200">Company</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + index * 0.1, duration: 0.5 }}
-                >
-                  {link.type === 'section' ? (
-                    <motion.a
-                      href={link.href}
-                      onClick={(e) => handleNavigation(e, link)}
-                      className="text-teal-100 hover:text-white transition-colors flex items-center group"
-                      whileHover={{ x: 5 }}
+            <h3 className="text-xl font-semibold mb-6 text-teal-200">Support</h3>
+            <ul className="space-y-2">
+                {contactMethods.map((method, index) => (
+                  <motion.li
+                    key={method.type}
+                    className="flex justify-between items-center text-sm"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
+                  >
+                    <motion.button
+                      onClick={method.action}
+                      className="text-teal-100 hover:text-white transition-colors text-left"
+                      whileHover={{ scale: 1.05, x: 5 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <motion.span
-                        className="w-0 group-hover:w-2 h-0.5 bg-teal-300 mr-0 group-hover:mr-2 transition-all duration-300"
-                      />
-                      {link.name}
-                    </motion.a>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className="text-teal-100 hover:text-white transition-colors flex items-center group"
-                    >
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        className="flex items-center"
-                      >
-                        <motion.span
-                          className="w-0 group-hover:w-2 h-0.5 bg-teal-300 mr-0 group-hover:mr-2 transition-all duration-300"
-                        />
-                        {link.name}
-                      </motion.div>
-                    </Link>
-                  )}
-                </motion.li>
-              ))}
-            </ul>
+                      {method.type}
+                    </motion.button>
+                  </motion.li>
+                ))}
+              </ul>
           </motion.div>
 
-          {/* Subscribe & Support */}
+          {/* Subscribe */}
           <motion.div variants={itemVariants}>
             <h3 className="text-xl font-semibold mb-6 text-teal-200">Subscribe Now</h3>
             <motion.p 
@@ -374,38 +290,10 @@ const Footer = () => {
                 )}
               </motion.button>
             </motion.form>
-
-
-            
-            <div className="mt-8">
-              <h4 className="text-lg font-semibold mb-4 text-teal-200">Support</h4>
-              <ul className="space-y-2">
-                {contactMethods.map((method, index) => (
-                  <motion.li
-                    key={method.type}
-                    className="flex justify-between items-center text-sm"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                  >
-                    <motion.button
-                      onClick={method.action}
-                      className="text-teal-100 hover:text-white transition-colors text-left"
-                      whileHover={{ scale: 1.05, x: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      {method.type}
-                    </motion.button>
-                    <motion.span
-                      className="text-teal-300 text-xs"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {method.status}
-                    </motion.span>
-                  </motion.li>
-                ))}
-              </ul>
+            <div className="mt-4 text-center text-teal-200 text-xs">
+              {contactMethods.map((method) => (
+                <p key={method.type}>{method.status}</p>
+              ))}
             </div>
           </motion.div>
         </motion.div>
