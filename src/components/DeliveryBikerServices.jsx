@@ -2,6 +2,7 @@ import React from 'react';
 import BikerImage from '../assets/Valet-Biker.jpg';
 
 const DeliveryBikerServices = () => {
+  window.scroll(0,0);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Delivery Biker Services</h1>

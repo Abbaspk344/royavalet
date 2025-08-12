@@ -2,6 +2,7 @@ import React from 'react';
 import randomImage from '../assets/1.jpg';
 
 const ValetParkingInUAE = () => {
+    window.scroll(0,0);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Valet Parking Services in UAE</h1>

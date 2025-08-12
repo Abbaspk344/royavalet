@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { getImagesByCategory } from '../assets/imageIndex';
 
 const AboutUs = () => {
+
+  window.scroll(0,0);
   // Get about us images from local assets
   const aboutUsImages = getImagesByCategory('aboutUs');
   const testimonialImages = getImagesByCategory('testimonials');

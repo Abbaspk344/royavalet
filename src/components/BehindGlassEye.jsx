@@ -148,7 +148,7 @@ const BehindGlassEye = () => {
               ))}
             </motion.div>
 
-            <motion.button
+            {/* <motion.button
               className="bg-gradient-to-r from-teal-600 to-teal-700 text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -161,7 +161,7 @@ const BehindGlassEye = () => {
               whileTap={{ scale: 0.95 }}
             >
               EXPLORE MORE
-            </motion.button>
+            </motion.button> */}
           </motion.div>
 
           {/* Right Gallery */}

@@ -288,34 +288,52 @@ const Header = ({ onGetQuote }) => {
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ delay: 0.4 + index * 0.1, duration: 0.3 }}
                       >
-                        <div
-                          onClick={() => item.children && setIsServicesMenuOpen(!isServicesMenuOpen)}
-                          className={`block text-gray-700 hover:text-teal-600 font-medium py-3 px-3 rounded-lg hover:bg-teal-50 transition-colors text-lg ${
-                            location.pathname === item.href ? 'text-teal-600 bg-teal-50' : ''
-                          }`}
-                        >
-                          <motion.div whileTap={{ scale: 0.98 }}>
-                            {item.label}
-                          </motion.div>
-                        </div>
-                        {item.children && isServicesMenuOpen && (
-                          <motion.div
-                            className="ml-4"
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
+                        {item.children ? (
+                          <div>
+                            <div
+                              onClick={() => setIsServicesMenuOpen(!isServicesMenuOpen)}
+                              className={`block text-gray-700 hover:text-teal-600 font-medium py-3 px-3 rounded-lg hover:bg-teal-50 transition-colors text-lg cursor-pointer ${
+                                isServicesMenuOpen ? 'text-teal-600 bg-teal-50' : ''
+                              }`}
+                            >
+                              <motion.div whileTap={{ scale: 0.98 }}>
+                                {item.label}
+                              </motion.div>
+                            </div>
+                            <AnimatePresence>
+                              {isServicesMenuOpen && (
+                                <motion.div
+                                  className="ml-4"
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: "auto", opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                >
+                                  {item.children.map((child) => (
+                                    <Link
+                                      key={child.href}
+                                      to={child.href}
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                      className="block text-gray-700 hover:text-teal-600 font-medium py-2 px-3 rounded-lg hover:bg-teal-50 transition-colors text-base"
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  ))}
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        ) : (
+                          <Link
+                            to={item.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`block text-gray-700 hover:text-teal-600 font-medium py-3 px-3 rounded-lg hover:bg-teal-50 transition-colors text-lg ${
+                              location.pathname === item.href ? 'text-teal-600 bg-teal-50' : ''
+                            }`}
                           >
-                            {item.children.map((child) => (
-                              <Link
-                                key={child.href}
-                                to={child.href}
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block text-gray-700 hover:text-teal-600 font-medium py-2 px-3 rounded-lg hover:bg-teal-50 transition-colors text-base"
-                              >
-                                {child.label}
-                              </Link>
-                            ))}
-                          </motion.div>
+                            <motion.div whileTap={{ scale: 0.98 }}>
+                              {item.label}
+                            </motion.div>
+                          </Link>
                         )}
                       </motion.div>
                     )

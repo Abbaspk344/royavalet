@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { img25 } from '../assets/imageIndex';
 
 const WhyChooseUs = () => {
+    window.scroll(0,0);
   const features = [
     {
       icon: '👔',

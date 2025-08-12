@@ -6,6 +6,7 @@ const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [filter, setFilter] = useState('all');
 
+  window.scroll(0,0);
   // Get gallery images from local assets
   const galleryImageUrls = getImagesByCategory('gallery');
 

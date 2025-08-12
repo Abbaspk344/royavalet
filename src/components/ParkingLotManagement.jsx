@@ -2,6 +2,7 @@ import React from 'react';
 import ParkingLotImage from '../assets/Parking-Lot-Service.jpg';
 
 const ParkingLotManagement = () => {
+    window.scroll(0,0);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Parking Lot Management</h1>

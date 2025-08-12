@@ -11,6 +11,7 @@ import {
 import { apiRequest, API_ENDPOINTS } from '../config/apiConfig';
 
 const ContactUs = () => {
+  window.scroll(0,0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

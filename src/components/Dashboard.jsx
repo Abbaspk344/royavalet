@@ -24,7 +24,7 @@ const Dashboard = () => {
         
         {/* Main Content */}
         <motion.main 
-          className="flex-1 p-6 mt-16"
+          className="flex-1 p-6 mt-16 w-full overflow-x-auto"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}

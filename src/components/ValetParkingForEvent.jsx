@@ -2,6 +2,7 @@ import React from 'react';
 import SwissValetEvent from '../assets/Swiss-Valet-Event.png';
 
 const ValetParkingForEvent = () => {
+  window.scroll(0,0);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Valet Parking for Special Events</h1>
