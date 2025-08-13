@@ -150,7 +150,7 @@ const Footer = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <img src={finallogo} alt="Royavalet Logo" className="h-12" />
-              <span className="font-bold text-2xl ml-2">RoyaValet</span>
+              <span className="font-bold text-xl ml-2">ROYA VALET PARKING</span>
             </motion.div>
             <motion.p 
               className="text-teal-100 mb-6 leading-relaxed"
@@ -158,7 +158,7 @@ const Footer = () => {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Enjoy Royavalet parking UAE for a stress-free evening with our reliable and 
+              Enjoy ROYA VALET PARKING SERVICES LLC for a stress-free evening with our reliable and 
               efficient valet parking in Dubai, Sharjah and all over the UAE.
             </motion.p>
             
@@ -310,7 +310,7 @@ const Footer = () => {
             className="text-teal-100 text-sm mb-4 md:mb-0"
             whileHover={{ scale: 1.02 }}
           >
-            © 2025 Royavalet Parking Services UAE. All Rights Reserved.
+            © 2025 ROYA VALET PARKING SERVICES LLC. All Rights Reserved.
           </motion.div>
           <div className="flex space-x-6 text-sm">
             <motion.a

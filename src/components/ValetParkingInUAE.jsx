@@ -7,7 +7,7 @@ const ValetParkingInUAE = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Valet Parking Services in UAE</h1>
       <div className="flex justify-center">
-        <img src={randomImage} alt="Valet Parking Services in UAE" className="rounded-lg shadow-lg h-[500px] w-[800px]" />
+        <img src={randomImage} alt="Valet Parking Services in UAE" className="rounded-lg shadow-lg md:h-[500px] h-[250px] w-[800px]" />
       </div>
       <div className="mt-8">
         <p className="text-lg text-gray-700">

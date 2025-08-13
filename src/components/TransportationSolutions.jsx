@@ -7,7 +7,7 @@ const TransportationSolutions = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Transportation Solutions</h1>
       <div className="flex justify-center">
-        <img src={TransportationImage} alt="Transportation Solutions" className="rounded-lg shadow-lg h-96" />
+        <img src={TransportationImage} alt="Transportation Solutions" className="rounded-lg shadow-lg md:h-96 h-48" />
       </div>
       <div className="mt-8">
         <p className="text-lg text-gray-700">
@@ -20,13 +20,13 @@ const TransportationSolutions = () => {
           Whether you need a quick fix for a transportation issue or an end-to-end solution, our transportation management suite can help. We provide the depth of standard capabilities that you need as well as an incredibly broad array of advanced capabilities.
         </p>
         <p className="text-lg text-gray-700 mt-4">
-          We carefully developed our services using the right elements and specifications to ensure the highest quality standards and excellent Client experience. Roya Valet Parking Services can address all these areas end-to-end or with its modular architecture can be quickly implemented in the select areas where you need the greatest help now as a result we are the best valet parking company in Dubai.
+          We carefully developed our services using the right elements and specifications to ensure the highest quality standards and excellent Client experience. ROYA VALET PARKING SERVICES LLC can address all these areas end-to-end or with its modular architecture can be quickly implemented in the select areas where you need the greatest help now as a result we are the best valet parking company in Dubai.
         </p>
         <p className="text-lg text-gray-700 mt-4">
           We have transportation mode specific capabilities to meet unique transportation management system requirements such as ocean contract management and air bookings.
         </p>
         <p className="text-lg text-gray-700 mt-4">
-          Roya Valet parking Services offers supply chain solutions for:
+          ROYA VALET PARKING SERVICES LLC offers supply chain solutions for:
         </p>
         <h2 className="text-2xl font-bold mt-8">Contract Management:</h2>
         <p className="text-lg text-gray-700 mt-4">

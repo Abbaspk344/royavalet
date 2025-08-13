@@ -84,7 +84,7 @@ const AboutUs = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            About Royavalet
+         ROYA VALET PARKING SERVICES LLC
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-teal-100 max-w-3xl mx-auto"
@@ -126,7 +126,7 @@ const AboutUs = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">We Deliver Measurable Results</h2>
               <div className="w-16 h-1 bg-teal-600 mb-6"></div>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                HG Valet Parking UAE is a premier valet parking provider in the United
+                ROYA VALET PARKING SERVICES LLC is a premier valet parking provider in the United
                 Arab Emirates renowned for delivering exceptional customer service
                 and seamless parking experiences. Committed to exceeding
                 expectations, the company employs highly trained and experienced
@@ -134,7 +134,7 @@ const AboutUs = () => {
                 and meticulous attention to detail.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed">
-                At HG Valet Parking UAE, your UAE
+                At  ROYA VALET PARKING SERVICES LLC, your UAE
                 parking experience is elevated with a touch of class. We provide a
                 one-stop solution for valet parking, allowing you to focus on what
                 matters most. Experience the HG Valet Parking UAE difference—
@@ -158,7 +158,7 @@ const AboutUs = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Mission</h2>
             <p className="text-green-200 font-semibold mb-6">Where Convenience Meets Concierge.</p>
             <p className="text-lg leading-relaxed">
-              At HG Valet Parking UAE Company, our mission is to redefine the parking experience by delivering
+              At   ROYA VALET PARKING SERVICES LLC Company, our mission is to redefine the parking experience by delivering
               unparalleled convenience, professionalism, and innovation. We are committed to transforming the way
               guests arrive at events, ensuring a seamless and sophisticated entry that reflects the excellence of our
               service.

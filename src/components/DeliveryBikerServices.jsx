@@ -7,7 +7,7 @@ const DeliveryBikerServices = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Delivery Biker Services</h1>
       <div className="flex justify-center">
-        <img src={BikerImage} alt="Delivery Biker Services" className="rounded-lg shadow-lg h-96" />
+        <img src={BikerImage} alt="Delivery Biker Services" className="rounded-lg shadow-lg md:h-96 h-48" />
       </div>
       <div className="mt-8">
         <p className="text-lg text-gray-700">

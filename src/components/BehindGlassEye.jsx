@@ -115,7 +115,7 @@ const BehindGlassEye = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              Some memories of Royavalet Parking UAE Services Behind The Glass Eye. 
+              Some memories of ROYA VALET PARKING SERVICES LLC Services Behind The Glass Eye. 
               Discover the stories, moments, and experiences that define our commitment 
               to excellence in valet parking services across the UAE.
             </motion.p>

@@ -122,7 +122,7 @@ const Hero = ({ onGetQuote, onLearnMore }) => {
   }
 
   return (
-    <section className="min-h-screen flex items-center py-4 md:py-16" id="hero">
+    <section className="h-screen-ios flex items-center py-6 md:py-16 overflow-x-hidden" id="hero">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Left Content */}

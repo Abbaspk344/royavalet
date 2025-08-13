@@ -66,7 +66,7 @@ export const getRandomImages = (count = 3) => {
 // Image categories distributed across the entire site
 export const imageCategories = {
   hero: [img1, img7, img3, img4], // 4 images for hero carousel
-  services: [img5, img6, img7, img8, img9, img10, img29], // 7 images for services section
+  services: [img20, img12, img7, img8, img9, img10, img29], // 7 images for services section
   gallery: [img11, img12, img13, img14, img15, img16, img17, img18], // 8 images for gallery/behind glass eye
   technology: [img19, img20, img21], // 3 images for technology section
   testimonials: [img22, img23, img24], // 3 images for testimonials

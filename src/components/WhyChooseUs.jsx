@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { img25 } from '../assets/imageIndex';
 
 const WhyChooseUs = () => {
-    window.scroll(0,0);
   const features = [
     {
       icon: '👔',
@@ -28,7 +27,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white">
+    <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white overflow-x-hidden">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}

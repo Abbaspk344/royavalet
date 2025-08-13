@@ -60,13 +60,13 @@ const HowWeHelp = () => {
             transition={{ duration: 0.8 }}
           >
             <motion.h2 
-              className="text-3xl md:text-5xl font-bold mb-6"
+              className="text-3xl md:text-4xl font-bold mb-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              HOW ROYAVALET CAN HELP
+              HOW ROYA VALET PARKING SERVICES LLC CAN HELP
             </motion.h2>
             
             <motion.p 
@@ -76,7 +76,7 @@ const HowWeHelp = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              From bustling airports to elegant weddings, Royavalet Parking UAE is 
+              From bustling airports to elegant weddings, ROYA VALET PARKING SERVICES LLC is 
               here to take the wheel when it comes to parking. We're more than just 
               valets; we're your stress-free solution to navigating the often chaotic 
               world of parking.

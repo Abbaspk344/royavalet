@@ -69,7 +69,7 @@ const DashboardNavbar = ({ sidebarOpen, setSidebarOpen }) => {
 
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center ml-4 lg:ml-0">
-              <div className="text-2xl font-bold text-teal-600">🅿️ ROYAVALET</div>
+              <div className="text-2xl font-bold text-teal-600">ROYA VALET</div>
               <span className="ml-2 text-sm text-gray-500 hidden sm:block">Admin Panel</span>
             </div>
           </div>
