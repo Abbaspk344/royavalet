@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Hero = ({ onGetQuote, onLearnMore }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
   const [progress, setProgress] = useState(0);
 
   // Get hero images from local assets
@@ -39,25 +39,20 @@ const Hero = ({ onGetQuote, onLearnMore }) => {
     // Preload images
     const preloadImages = async () => {
       const imagePromises = heroImages.map((image) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const img = new Image();
           img.onload = resolve;
-          img.onerror = reject;
+          img.onerror = resolve; // Resolve even on error to not block the UI
           img.src = image.url;
         });
       });
 
-      try {
-        await Promise.all(imagePromises);
-        setIsLoaded(true);
-      } catch (error) {
-        console.error('Error preloading images:', error);
-        setIsLoaded(true); // Still show content even if images fail
-      }
+      await Promise.all(imagePromises);
+      setIsLoaded(true);
     };
 
     preloadImages();
-  }, []);
+  }, [heroImages]);
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -127,7 +122,7 @@ const Hero = ({ onGetQuote, onLearnMore }) => {
   }
 
   return (
-    <section className="min-h-screen flex items-center py-8 md:py-16" id="hero">
+    <section className="min-h-screen flex items-center py-4 md:py-16" id="hero">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Left Content */}
@@ -138,7 +133,7 @@ const Hero = ({ onGetQuote, onLearnMore }) => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <motion.h1
-              className=" sm:text-3xl md:text-5xl  font-bold text-gray-800 mb-4 md:mb-6 leading-tight"
+              className="text-2xl md:text-5xl  font-bold text-gray-800 mb-4 md:mb-6 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -280,14 +275,14 @@ const Hero = ({ onGetQuote, onLearnMore }) => {
                     animate={{ filter: "blur(0px) brightness(1)" }}
                     transition={{ duration: 1, delay: 0.5 }}
                   >
-                    <motion.img
+                  <motion.img
                       src={heroImages[currentImageIndex].url}
                       alt={heroImages[currentImageIndex].alt}
                       className="w-full h-64 sm:h-80 md:h-96 lg:h-[500px] object-cover"
                       loading="eager"
-                      initial={{ scale: 1.3 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
                     />
 
                     {/* Dynamic Gradient Overlay */}

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -72,12 +72,44 @@ const LoadingSpinner = () => (
 );
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAppLoading, setIsAppLoading] = useState(true);
+  const [isWhatsAppVisible, setIsWhatsAppVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Handle quote request
   const handleGetQuote = useCallback(() => {
     // Navigate to contact page or scroll to contact section
     window.location.href = '/contact';
+  }, []);
+
+  // Simulate loading and handle WhatsApp button visibility
+  useEffect(() => {
+    // Mobile/tablet detection
+    const checkIfMobile = () => {
+      const isMobileDevice = window.innerWidth <= 1024 || 
+                            /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(isMobileDevice);
+    };
+
+    checkIfMobile();
+
+    // Simulate a loading time for the app
+    const loadingTimer = setTimeout(() => {
+      setIsAppLoading(false);
+      setIsWhatsAppVisible(true);
+    }, 1700); // Adjust this duration as needed
+
+    // Listen for resize events
+    const handleResize = () => {
+      checkIfMobile();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      clearTimeout(loadingTimer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
@@ -89,10 +121,15 @@ export default function App() {
         <Router>
           <div className="min-h-screen bg-white">
             <AnimatePresence>
-              {isLoading && <LoadingSpinner />}
+              {isAppLoading && <LoadingSpinner />}
             </AnimatePresence>
 
             {/* Main Content with Routes */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isAppLoading ? 0 : 1 }}
+              transition={{ duration: 0.5 }}
+            >
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={
@@ -245,6 +282,7 @@ export default function App() {
                 <Route path="settings" element={<div className="p-6 bg-white rounded-lg shadow-sm">Settings Page - Coming Soon</div>} />
               </Route>
             </Routes>
+            </motion.div>
           </div>
         </Router>
       </AuthProvider>
